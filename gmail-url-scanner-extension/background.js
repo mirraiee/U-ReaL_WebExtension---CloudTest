@@ -57,30 +57,3 @@ chrome.runtime.onInstalled.addListener(() => {
   });
 });
 
-// Method to check URL, to be called from the extension's content script or popup
-async function checkURL(url) {
-  return new Promise((resolve) => {
-    chrome.runtime.sendMessage({
-      action: 'checkURL',
-      url: url
-    }, (response) => {
-      if (chrome.runtime.lastError) {
-        // Retry once after a short delay if context invalidated
-        if (chrome.runtime.lastError.message.includes('Extension context invalidated')) {
-          setTimeout(() => {
-            chrome.runtime.sendMessage({
-              action: 'checkURL',
-              url: url
-            }, (retryResponse) => {
-              resolve(retryResponse || { is_malicious: false, confidence: 0 });
-            });
-          }, 500);
-        } else {
-          resolve({ is_malicious: false, confidence: 0 });
-        }
-      } else {
-        resolve(response || { is_malicious: false, confidence: 0 });
-      }
-    });
-  });
-}
