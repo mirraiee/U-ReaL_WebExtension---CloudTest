@@ -34,7 +34,6 @@ class URLFeatureExtractor:
         whitelist = set()
         with open(csv_path, newline='', encoding='utf-8') as f:
             reader = csv.reader(f)
-            next(reader, None)
             for i, row in enumerate(reader):
                 if i >= URLFeatureExtractor.MAX_WHITELIST:
                     break
@@ -88,6 +87,9 @@ class URLFeatureExtractor:
 
     def No_of_dots(self):
         return self.url.count('.')
+    
+    def hyphen_count_url(self):
+        return self.url.count('-')
 
     # Token features
     def avg_token_length(self):
@@ -130,6 +132,8 @@ class URLFeatureExtractor:
     # Convenience method to extract all features in dictionary
     def extract_features(self):
         return {
+            'URL_length': self.URL_length(),
+            'Domain_length': self.Domain_length(),
             'No_of_dots': self.No_of_dots(),
             'avg_token_length': self.avg_token_length(),
             'token_count': self.token_count(),
@@ -142,5 +146,6 @@ class URLFeatureExtractor:
             'largest_path': self.largest_path(),
             'sec_sen_word_cnt': self.sec_sen_word_cnt(),
             'IPaddress_presence': self.IPaddress_presence(),
-            'exe_in_url': self.exe_in_url()
+            'exe_in_url': self.exe_in_url(),
+            'hyphen_count_url': self.hyphen_count_url()
         }

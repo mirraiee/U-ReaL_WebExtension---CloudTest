@@ -38,6 +38,8 @@ except Exception as e:
 # Feature order must match training
 # -----------------------------
 FEATURE_ORDER = [
+    'URL_length',
+    'Domain_length',
     'No_of_dots',
     'avg_token_length',
     'token_count',
@@ -51,12 +53,13 @@ FEATURE_ORDER = [
     'sec_sen_word_cnt',
     'IPaddress_presence',
     'exe_in_url',
+    'hyphen_count_url',
 ]
 
 # -----------------------------
 # Prediction function
 # -----------------------------
-def predict_url(url, threshold=0.5):
+def predict_url(url, threshold=0.3):
     try:
         extractor = URLFeatureExtractor(url)
 
