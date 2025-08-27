@@ -1,7 +1,7 @@
 // Background Service Worker for Gmail URL Scanner
 
 // Backend API configuration
-const BACKEND_URL = 'http://3.0.57.177:5000'; // Use your EC2 instance's public IP
+const BACKEND_URL = 'http://54.169.37.142:5000'; // Use your EC2 instance's public IP
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'checkURL') {
